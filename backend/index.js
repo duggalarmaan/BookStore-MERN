@@ -20,7 +20,6 @@ app.use(
         origin: 'https://book-store-mern-three.vercel.app',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type'],
-        credentials: true
     })
 );
 
