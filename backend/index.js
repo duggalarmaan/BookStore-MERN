@@ -26,7 +26,7 @@ app.use(
 
 app.get('/', (request,response) => {
     console.log(request)
-    return response.status(234).send('Hello World');
+    return response.json('Hello World');
 });
 
 app.use('/books', booksRoute);
