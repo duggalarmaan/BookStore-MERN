@@ -1,40 +1,44 @@
 import express from "express";
-import mongoose from "mongoose";
-import cors from 'cors';
+import mongoose, { mongo } from "mongoose";
 import booksRoute from "./routes/booksRoute.js";
+import cors from 'cors';
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Ensure the PORT is set
 
-// Middleware for parsing JSON request body
+const PORT = 3000;
+
+//Midleware for parsing json request body
 app.use(express.json());
 
-// Middleware for handling CORS Policy
-// Allow all origins. Customize here if needed later.
-app.use(cors({
-    origin: '*', // Explicitly set to all origins
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Explicitly define allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // Define allowed headers
-}));
+//Middleware for handling CORS Policy
+//Option 1: Allow All Origins with Default of cors(*)
+app.use(cors());
 
-// Test route
-app.get('/', (req, res) => {
-    return res.json('Hello World from the Book Store API!');
+//Option 2: Allow Custom Origins
+/*app.use(
+    cors({
+        origin: 'https://book-store-mern-three.vercel.app',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    })
+);*/
+
+app.get('/', (request,response) => {
+    console.log(request)
+    return response.json('Hello World');
 });
 
-// Books route
 app.use('/books', booksRoute);
 
-// Database connection and server start
-mongoose.connect('mongodb+srv://root:root@book-store-mern.q2pfp2w.mongodb.net/books-collection?retryWrites=true&w=majority')
+mongoose
+.connect('mongodb+srv://root:root@book-store-mern.q2pfp2w.mongodb.net/books-collection?retryWrites=true&w=majority')
 .then(() => {
-    console.log('Connected to the database successfully');
+    console.log('App connected to database');
     app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });       
+        console.log(`Server running on port ${PORT}`);
+      });       
 })
 .catch((error) => {
-    console.log('Failed to connect to the database:', error);
+    console.log(error);
 });
 
 export default app;
