@@ -1,5 +1,4 @@
 import express from "express";
-import { PORT, mongoDBURL } from "./config.js";
 import mongoose, { mongo } from "mongoose";
 import { Book } from "./models/bookModel.js";
 import booksRoute from "./routes/booksRoute.js";
@@ -31,11 +30,11 @@ app.get('/', (request,response) => {
 app.use('/books', booksRoute);
 
 mongoose
-.connect(mongoDBURL)
+.connect('mongodb+srv://root:root@book-store-mern.q2pfp2w.mongodb.net/books-collection?retryWrites=true&w=majority')
 .then(() => {
     console.log('App connected to database');
-    app.listen(PORT, () => {
-        console.log(`App is listening to port: ${PORT}`);
+    app.listen(process.env.PORT || 3000, () => { // Use process.env.PORT as the port number
+        console.log(`App is listening to port: ${process.env.PORT || 3000}`);
     });        
 })
 .catch((error) => {
