@@ -12,16 +12,17 @@ app.use(express.json());
 
 //Middleware for handling CORS Policy
 //Option 1: Allow All Origins with Default of cors(*)
-app.use(cors());
+//app.use(cors());
 
 //Option 2: Allow Custom Origins
-/* app.use(
+app.use(
     cors({
-        origin: 'http://localhost:3000',
+        origin: 'https://deploy.vercel.app',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type'],
+        credentials: true
     })
-); */
+);
 
 app.get('/', (request,response) => {
     console.log(request)
