@@ -12,16 +12,16 @@ app.use(express.json());
 
 //Middleware for handling CORS Policy
 //Option 1: Allow All Origins with Default of cors(*)
-//app.use(cors());
+app.use(cors());
 
 //Option 2: Allow Custom Origins
-app.use(
+/*app.use(
     cors({
         origin: 'https://book-store-mern-three.vercel.app',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type'],
     })
-);
+);*/
 
 app.get('/', (request,response) => {
     console.log(request)
